@@ -18,8 +18,8 @@ namespace XmlUtility
 
         public static void SwitchAttributes(string key, string firstAttribute, string secondAttribute)
         {
-            string oldFilesDirectory = "../../OldFiles";
-            string newFilesDirectory = "../../NewFiles";
+            string oldFilesDirectory = "../../../OldFiles";
+            string newFilesDirectory = "../../../NewFiles";
 
             //create the OldFiles directory if it doesn't exist
             System.IO.Directory.CreateDirectory(oldFilesDirectory);
