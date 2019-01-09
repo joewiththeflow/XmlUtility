@@ -1,2 +1,13 @@
-System.Xml.XmlElement
-<localisation><global><add key="key1" value="what a load of jibberish" /><add key="key2" value="what a load of hoohah" /><add key="key3" value="what a load of rubbish" /></global><local><add key="key1" value="this is a test" /><add key="key2" value="this is also a test" /><add key="key3" value="test again" /></local></localisation>
+<? xml version ="1.0"?>
+<localisation>
+<global>
+<add value="what a load of jibberish" key="key1" />
+<add value="what a load of hoohah" key="key2" />
+<add value="what a load of rubbish" key="key3" />
+</global>
+<local>
+<add value="this is a test" key="key1" />
+<add value="this is also a test" key="key2" />
+<add value="test again" key="key3" />
+</local>
+</localisation>

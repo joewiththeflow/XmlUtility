@@ -10,6 +10,10 @@ namespace XmlUtility
 {
     public class SwitchAttributesForKey
     {
+        private static string key;
+        private static string firstAttribute;
+        private static string secondAttribute;
+
         //My first task is to create a method which will rearrange attributes for a particular key
         //  e.g. a file which has key/value attributes for various <add> nodes, but you want a way to easily call the 
         //SwitchAttributesForKey method, which will switch attributes from key/value to value/key in the xml
@@ -25,6 +29,10 @@ namespace XmlUtility
 
         public static void SwitchAttributes(string key, string firstAttribute, string secondAttribute)
         {
+
+            SwitchAttributesForKey.key = key;
+            SwitchAttributesForKey.firstAttribute = firstAttribute;
+            SwitchAttributesForKey.secondAttribute = secondAttribute;
             string workingDirectory = "../../";
             string oldFilesDirectory = workingDirectory + "OldFiles/";
             string newFilesDirectory = workingDirectory + "NewFiles/";
@@ -53,18 +61,70 @@ namespace XmlUtility
                 //get a list of all the nodes in the xml file
                 XmlNodeList listOfNodes = oldFile.SelectNodes("*");
 
+                
+                string completeXmlText = "<? xml version =\"1.0\"?>";
+                completeXmlText += ExtractOutXml(listOfNodes[0]);
+
                 //write this out to the new file
                 using (var writer = System.IO.File.CreateText(newFilesDirectory + fileInfo.Name))
                 {
-                    writer.WriteLine(currentNode);
+                    writer.WriteLine(completeXmlText);
+                    /*writer.WriteLine();
                     foreach (XmlNode node in listOfNodes)
                     {
                         writer.WriteLine(node.OuterXml);   // InnerXml to get only the content
                     }
+                    */
                 }
 
-       
             }
+        }
+        //I'm going to attempt to make this a recursive method
+        private static string ExtractOutXml(XmlNode node)
+        {
+            bool doesCurrentNodeMatchKey = (node.Name == key);
+            string temp = "";
+            //base case
+            if ((node.NextSibling == null) && !(node.HasChildNodes))
+            {
+                //temp += node.Name;
+
+                //if node = key passed in to the program then need to get the attributes switched
+                if (doesCurrentNodeMatchKey)
+                {
+                    return temp + "\r\n" + "<" + node.Name + " " + secondAttribute + "=" + '"' +
+                        node.Attributes[secondAttribute].Value + '"' + " " + firstAttribute + "=" + '"' +
+                        node.Attributes[firstAttribute].Value + '"' + " />";
+                }
+                else
+                {
+                    return temp + "\r\n" + "<" + node.Name + ">";
+                }
+            }
+            if (!doesCurrentNodeMatchKey)
+            {
+                temp += "\r\n" + "<" + node.Name + ">";
+            }
+                
+            if (node.HasChildNodes)
+            {
+                temp += ExtractOutXml(node.FirstChild) + "\r\n" + "</" + node.Name + ">";
+
+            }
+
+            if ((node.NextSibling) != null)
+            {
+                if (doesCurrentNodeMatchKey)
+                {
+                    temp += "\r\n" + "<" + node.Name + " " + secondAttribute + "=" + '"' +
+                        node.Attributes[secondAttribute].Value + '"' + " " + firstAttribute + "=" +'"' +
+                        node.Attributes[firstAttribute].Value + '"' + " />";
+                }
+               
+                    temp += ExtractOutXml(node.NextSibling);
+                
+            }
+            return temp; //+ "\r\n" + node.Name + "\r\n";
         }
     }
 }
