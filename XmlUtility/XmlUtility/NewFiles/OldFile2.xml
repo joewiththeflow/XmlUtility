@@ -5,45 +5,34 @@
 <add value="what a load of hoohah" key="key2" />
 <add value="what a load of rubbish" key="key3" />
 </global>
-<global>
 <local>
-<page>
+<page name="page1.aspx">
 <local>
-<page>
+<page name="page1part1.ascx">
 <add value="this is a test" key="key1" />
 <add value="this is also a test" key="key2" />
 <add value="test again" key="key3" />
 </page>
-
-<page name="page1part1.ascx">
-<page>
+<page name="page1part2.ascx">
 <add value="this is a test" key="key1" />
 <add value="this is also a test" key="key2" />
 <add>I do not have the correct attributes!!!!!!!
 </page>
-
-<page name="page1part2.ascx">
 <add value="this is test seven" key="key7" />
 </local>
 </page>
-
-<page name="page1.aspx">
-<page>
+<page name="page2.aspx">
 <local>
-<page>
-<add value="this is a test" key="key1" />
-<add value="this is also a test" key="key2" />
-<add value="test again" key="key3" />
-</page>
-
 <page name="page2part1.ascx">
-<page>
 <add value="this is a test" key="key1" />
 <add value="this is also a test" key="key2" />
 <add value="test again" key="key3" />
 </page>
-
 <page name="page2part2.ascx">
+<add value="this is a test" key="key1" />
+<add value="this is also a test" key="key2" />
+<add value="test again" key="key3" />
+</page>
 <add value="this is test seven" key="key7" />
 </local>
 </page>

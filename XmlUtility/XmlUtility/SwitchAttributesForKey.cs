@@ -123,7 +123,7 @@ namespace XmlUtility
                         {
                             nodePlusParameters += " " + attrib.Name + "=" + '"' + attrib.Value + '"';
                         }
-                        return temp + "\r\n" + nodePlusParameters + ">";
+                        return temp + nodePlusParameters + ">";
                     }
                     //node has no attributes
                     else
@@ -134,7 +134,24 @@ namespace XmlUtility
             }
             if (!doesCurrentNodeMatchKey)
             {
-                temp += "\r\n" + "<" + node.Name + ">";
+                //check if the node has any attributes
+                if (node.Attributes.Count != 0)
+                {
+                    string nodePlusParameters = "\r\n" + "<" + node.Name;
+                    foreach (XmlAttribute attrib in node.Attributes)
+                    {
+                        nodePlusParameters += " " + attrib.Name + "=" + '"' + attrib.Value + '"';
+                    }
+                    temp += nodePlusParameters + ">";
+                }
+                //node has no attributes
+                else
+                {
+                    temp += "\r\n" + "<" + node.Name + ">";
+                }
+
+
+                //temp += "\r\n" + "<" + node.Name + ">";
             }
                 
             if (node.HasChildNodes)
@@ -164,7 +181,7 @@ namespace XmlUtility
                         temp += "\r\n" + "<" + node.Name + ">" + "I do not have the correct attributes!!!!!!!";
                     }
                 }
-                //if it does math the key but the attributes are missing or wrong then we want to know about it
+                /*//if it does math the key but the attributes are missing or wrong then we want to know about it
                 else if (doesCurrentNodeMatchKey)
                 {
                     temp += "\r\n" + "<" + node.Name + ">" + "I do not have the correct attributes!!!!!!!";
@@ -187,7 +204,7 @@ namespace XmlUtility
                         temp += "\r\n" + "<" + node.Name + ">";
                     }
                 }
-
+                */
 
 
                 /*
