@@ -1,14 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-
+<!-- This is a comment -->
 <localisation>
   <global>
     <add key="key1" value="what a load of jibberish" />
     <add key="key2" value="what a load of hoohah" />
     <add key="key3" value="what a load of rubbish" />
+    <design name="hello" path="clown" />
   </global>
   <local>
     <add key="key1" value="this is a test" />
     <add key="key2" value="this is also a test" />
-    <add key="key3" value="test again" />
+    <add ke="key3" value="test again" />
   </local>
   </localisation>

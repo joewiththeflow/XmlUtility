@@ -90,15 +90,46 @@ namespace XmlUtility
                 //temp += node.Name;
 
                 //if node = key passed in to the program then need to get the attributes switched
-                if (doesCurrentNodeMatchKey)
+                //but need to check the attributes exist first
+                if (doesCurrentNodeMatchKey && node.Attributes.Count == 2)
                 {
-                    return temp + "\r\n" + "<" + node.Name + " " + secondAttribute + "=" + '"' +
-                        node.Attributes[secondAttribute].Value + '"' + " " + firstAttribute + "=" + '"' +
-                        node.Attributes[firstAttribute].Value + '"' + " />";
+                    string nodeAttributeName1 = node.Attributes[0].Name;
+                    string nodeAttributeName2 = node.Attributes[1].Name;
+
+                    if ((nodeAttributeName1 == firstAttribute) && (nodeAttributeName2 == secondAttribute))
+                    {
+                        return temp + "\r\n" + "<" + node.Name + " " + secondAttribute + "=" + '"' +
+                            node.Attributes[secondAttribute].Value + '"' + " " + firstAttribute + "=" + '"' +
+                            node.Attributes[firstAttribute].Value + '"' + " />";
+                    }
+                    //I have the wrong attributes
+                    else
+                    {
+                        return temp + "\r\n" + "<" + node.Name + ">" + "I do not have the correct attributes!!!!!!!";
+                    }
+                }
+                //if it does math the key but the attributes are missing or wrong then we want to know about it
+                else if (doesCurrentNodeMatchKey)
+                {
+                    return temp + "\r\n" + "<" + node.Name + ">" + "I do not have the correct attributes!!!!!!!";
                 }
                 else
                 {
-                    return temp + "\r\n" + "<" + node.Name + ">";
+                    //check if the node has any attributes
+                    if (node.Attributes.Count != 0)
+                    {
+                        string nodePlusParameters = "\r\n" + "<" + node.Name;
+                        foreach(XmlAttribute attrib in node.Attributes)
+                        {
+                            nodePlusParameters += " " + attrib.Name + "=" + '"' + attrib.Value + '"';
+                        }
+                        return temp + "\r\n" + nodePlusParameters + ">";
+                    }
+                    //node has no attributes
+                    else
+                    {
+                        return temp + "\r\n" + "<" + node.Name + ">";
+                    }
                 }
             }
             if (!doesCurrentNodeMatchKey)
@@ -114,6 +145,52 @@ namespace XmlUtility
 
             if ((node.NextSibling) != null)
             {
+                //if node = key passed in to the program then need to get the attributes switched
+                //but need to check the attributes exist first
+                if (doesCurrentNodeMatchKey && node.Attributes.Count == 2)
+                {
+                    string nodeAttributeName1 = node.Attributes[0].Name;
+                    string nodeAttributeName2 = node.Attributes[1].Name;
+
+                    if ((nodeAttributeName1 == firstAttribute) && (nodeAttributeName2 == secondAttribute))
+                    {
+                        temp += "\r\n" + "<" + node.Name + " " + secondAttribute + "=" + '"' +
+                        node.Attributes[secondAttribute].Value + '"' + " " + firstAttribute + "=" + '"' +
+                        node.Attributes[firstAttribute].Value + '"' + " />";
+                    }
+                    //I have the wrong attributes
+                    else
+                    {
+                        temp += "\r\n" + "<" + node.Name + ">" + "I do not have the correct attributes!!!!!!!";
+                    }
+                }
+                //if it does math the key but the attributes are missing or wrong then we want to know about it
+                else if (doesCurrentNodeMatchKey)
+                {
+                    temp += "\r\n" + "<" + node.Name + ">" + "I do not have the correct attributes!!!!!!!";
+                }
+                else
+                {
+                    //check if the node has any attributes
+                    if (node.Attributes.Count != 0)
+                    {
+                        string nodePlusParameters = "\r\n" + "<" + node.Name;
+                        foreach (XmlAttribute attrib in node.Attributes)
+                        {
+                            nodePlusParameters += " " + attrib.Name + "=" + '"' + attrib.Value + '"';
+                        }
+                        temp += "\r\n" + nodePlusParameters + ">";
+                    }
+                    //node has no attributes
+                    else
+                    {
+                        temp += "\r\n" + "<" + node.Name + ">";
+                    }
+                }
+
+
+
+                /*
                 if (doesCurrentNodeMatchKey)
                 {
                     temp += "\r\n" + "<" + node.Name + " " + secondAttribute + "=" + '"' +
@@ -121,7 +198,7 @@ namespace XmlUtility
                         node.Attributes[firstAttribute].Value + '"' + " />";
                 }
                
-                    temp += ExtractOutXml(node.NextSibling);
+*/                    temp += ExtractOutXml(node.NextSibling);
                 
             }
             return temp; //+ "\r\n" + node.Name + "\r\n";
